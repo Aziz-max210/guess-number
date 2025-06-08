@@ -34,7 +34,7 @@ class NeonButton(Button):
             RoundedRectangle(
                 pos=(self.x - dp(3), self.y - dp(3)),
                 size=(self.width + dp(6), self.height + dp(6)),
-                radius=[dp(20)]
+                radius=[dp(15)]
             )
 
             # Основной фон кнопки
@@ -42,13 +42,13 @@ class NeonButton(Button):
             RoundedRectangle(
                 pos=self.pos,
                 size=self.size,
-                radius=[dp(20)]
+                radius=[dp(15)]
             )
 
             # Неоновая граница
             Color(*self.neon_color)
             Line(
-                rounded_rectangle=(self.x, self.y, self.width, self.height, dp(20)),
+                rounded_rectangle=(self.x, self.y, self.width, self.height, dp(15)),
                 width=dp(2)
             )
 
@@ -57,7 +57,7 @@ class NeonButton(Button):
             RoundedRectangle(
                 pos=(self.x + dp(4), self.y + self.height * 0.65),
                 size=(self.width - dp(8), self.height * 0.2),
-                radius=[dp(10)]
+                radius=[dp(8)]
             )
 
     def on_press_animation(self, instance):
@@ -66,32 +66,6 @@ class NeonButton(Button):
             duration=0.1
         )
         anim.start(self)
-
-        # Усиление свечения при нажатии
-        self.canvas.before.clear()
-        with self.canvas.before:
-            # Усиленное внешнее свечение
-            Color(*self.neon_color, 0.8)
-            RoundedRectangle(
-                pos=(self.x - dp(5), self.y - dp(5)),
-                size=(self.width + dp(10), self.height + dp(10)),
-                radius=[dp(20)]
-            )
-
-            # Основной фон кнопки
-            Color(*self.bg_color)
-            RoundedRectangle(
-                pos=self.pos,
-                size=self.size,
-                radius=[dp(20)]
-            )
-
-            # Усиленная неоновая граница
-            Color(*self.neon_color)
-            Line(
-                rounded_rectangle=(self.x, self.y, self.width, self.height, dp(20)),
-                width=dp(3)
-            )
 
     def on_release_animation(self, instance):
         anim = Animation(
@@ -109,18 +83,16 @@ class HintButton(Button):
         self.background_down = ''
         self.background_color = (0, 0, 0, 0)
         self.bind(pos=self.update_graphics, size=self.update_graphics)
-        self.bind(on_press=self.on_press_animation)
-        self.bind(on_release=self.on_release_animation)
 
     def update_graphics(self, *args):
         self.canvas.before.clear()
         with self.canvas.before:
             # Внешнее свечение
-            Color(1, 0.8, 0, 0.6)  # Золотистое свечение
+            Color(1, 0.8, 0, 0.6)
             RoundedRectangle(
                 pos=(self.x - dp(2), self.y - dp(2)),
                 size=(self.width + dp(4), self.height + dp(4)),
-                radius=[dp(15)]
+                radius=[dp(12)]
             )
 
             # Основной фон
@@ -128,23 +100,15 @@ class HintButton(Button):
             RoundedRectangle(
                 pos=self.pos,
                 size=self.size,
-                radius=[dp(15)]
+                radius=[dp(12)]
             )
 
             # Золотистая граница
             Color(1, 0.8, 0, 1)
             Line(
-                rounded_rectangle=(self.x, self.y, self.width, self.height, dp(15)),
+                rounded_rectangle=(self.x, self.y, self.width, self.height, dp(12)),
                 width=dp(2)
             )
-
-    def on_press_animation(self, instance):
-        anim = Animation(size=(self.width * 0.9, self.height * 0.9), duration=0.1)
-        anim.start(self)
-
-    def on_release_animation(self, instance):
-        anim = Animation(size=(self.width / 0.9, self.height / 0.9), duration=0.1)
-        anim.start(self)
 
 
 class StableTextInput(TextInput):
@@ -166,7 +130,7 @@ class StableTextInput(TextInput):
         self.bind(text=self.on_text_change)
 
     def update_text_size(self, *args):
-        self.text_size = (self.width - dp(40), self.height)
+        self.text_size = (self.width - dp(20), self.height)
 
     def on_text_change(self, instance, text):
         self.halign = 'center'
@@ -178,9 +142,9 @@ class StableTextInput(TextInput):
             if self.is_focused:
                 Color(*self.neon_color, 0.5)
                 RoundedRectangle(
-                    pos=(self.x - dp(3), self.y - dp(3)),
-                    size=(self.width + dp(6), self.height + dp(6)),
-                    radius=[dp(15)]
+                    pos=(self.x - dp(2), self.y - dp(2)),
+                    size=(self.width + dp(4), self.height + dp(4)),
+                    radius=[dp(12)]
                 )
 
             # Основной фон
@@ -188,20 +152,20 @@ class StableTextInput(TextInput):
             RoundedRectangle(
                 pos=self.pos,
                 size=self.size,
-                radius=[dp(15)]
+                radius=[dp(12)]
             )
 
             # Граница
             if self.is_focused:
                 Color(*self.neon_color)
                 Line(
-                    rounded_rectangle=(self.x, self.y, self.width, self.height, dp(15)),
+                    rounded_rectangle=(self.x, self.y, self.width, self.height, dp(12)),
                     width=dp(2)
                 )
             else:
                 Color(0.4, 0.4, 0.45, 1)
                 Line(
-                    rounded_rectangle=(self.x, self.y, self.width, self.height, dp(15)),
+                    rounded_rectangle=(self.x, self.y, self.width, self.height, dp(12)),
                     width=dp(1)
                 )
 
@@ -221,17 +185,17 @@ class DarkCard(BoxLayout):
             # Внешняя тень
             Color(0, 0, 0, 0.8)
             RoundedRectangle(
-                pos=(self.x + dp(10), self.y - dp(10)),
+                pos=(self.x + dp(8), self.y - dp(8)),
                 size=self.size,
-                radius=[dp(30)]
+                radius=[dp(25)]
             )
 
             # Средняя тень
             Color(0, 0, 0, 0.5)
             RoundedRectangle(
-                pos=(self.x + dp(5), self.y - dp(5)),
+                pos=(self.x + dp(4), self.y - dp(4)),
                 size=self.size,
-                radius=[dp(30)]
+                radius=[dp(25)]
             )
 
             # Основной фон карточки
@@ -239,23 +203,15 @@ class DarkCard(BoxLayout):
             RoundedRectangle(
                 pos=self.pos,
                 size=self.size,
-                radius=[dp(30)]
+                radius=[dp(25)]
             )
 
             # Верхний блик
             Color(1, 1, 1, 0.05)
             RoundedRectangle(
-                pos=(self.x + dp(6), self.y + self.height * 0.85),
-                size=(self.width - dp(12), self.height * 0.1),
-                radius=[dp(25), dp(25), 0, 0]
-            )
-
-            # Нижний градиент
-            Color(0.1, 0.1, 0.15, 1)
-            RoundedRectangle(
-                pos=(self.x, self.y),
-                size=(self.width, self.height * 0.3),
-                radius=[0, 0, dp(30), dp(30)]
+                pos=(self.x + dp(4), self.y + self.height * 0.85),
+                size=(self.width - dp(8), self.height * 0.1),
+                radius=[dp(20), dp(20), 0, 0]
             )
 
 
@@ -266,7 +222,7 @@ class GuessNumberWidget(FloatLayout):
         # Темный фон
         Window.clearcolor = (0.08, 0.08, 0.1, 1)
 
-        # Адаптивные размеры в зависимости от экрана
+        # Получаем размеры экрана
         self.screen_width = Window.width
         self.screen_height = Window.height
 
@@ -277,80 +233,88 @@ class GuessNumberWidget(FloatLayout):
         self.attempts = 0
         self.hint_shown = False
 
-        # Основная игровая карточка
+        # Основная игровая карточка с улучшенными отступами
         self.game_card = DarkCard(
             orientation='vertical',
-            padding=[dp(20), dp(20)],
-            spacing=dp(15),
-            size_hint=(0.9, 0.85),
+            padding=[dp(15), dp(15)],
+            spacing=dp(8),
+            size_hint=(0.95, 0.9),
             pos_hint={'center_x': 0.5, 'center_y': 0.5}
         )
 
-        # Заголовок с адаптивным размером шрифта
+        # Заголовок с адаптивным размером и переносом текста
         self.title_label = Label(
             text="УГАДАЙ ЧИСЛО",
-            font_size=sp(32),  # Используем sp для адаптивности
+            font_size=self.get_adaptive_font_size(24),
             color=(0, 0.8, 1, 1),
-            size_hint=(1, 0.12),
-            bold=True
+            size_hint=(1, 0.1),
+            bold=True,
+            text_size=(None, None),
+            halign='center',
+            valign='middle'
         )
         self.game_card.add_widget(self.title_label)
 
-        # Подзаголовок
+        # Подзаголовок с переносом текста
         self.subtitle_label = Label(
-            text="Современная игра на логику",
-            font_size=sp(14),
+            text="Современная игра\nна логику",
+            font_size=self.get_adaptive_font_size(12),
             color=(0.6, 0.6, 0.7, 1),
-            size_hint=(1, 0.08)
+            size_hint=(1, 0.08),
+            text_size=(None, None),
+            halign='center',
+            valign='middle'
         )
         self.game_card.add_widget(self.subtitle_label)
 
-        # Разделитель
-        separator = Widget(size_hint=(1, 0.02))
-        self.game_card.add_widget(separator)
-
-        # Подсказка
+        # Подсказка с переносом текста
         self.hint_label = Label(
-            text="Я загадал число от 1 до 100",
-            font_size=sp(18),
+            text="Я загадал число\nот 1 до 100",
+            font_size=self.get_adaptive_font_size(14),
             color=(0.8, 0.8, 0.9, 1),
             size_hint=(1, 0.12),
-            bold=True
+            bold=True,
+            text_size=(None, None),
+            halign='center',
+            valign='middle'
         )
         self.game_card.add_widget(self.hint_label)
 
         # Счетчик попыток
         self.attempts_label = Label(
             text="",
-            font_size=sp(14),
+            font_size=self.get_adaptive_font_size(12),
             color=(0.7, 0.4, 1, 1),
-            size_hint=(1, 0.08)
+            size_hint=(1, 0.06),
+            text_size=(None, None),
+            halign='center',
+            valign='middle'
         )
         self.game_card.add_widget(self.attempts_label)
 
-        # Поле ввода с адаптивными размерами
+        # Поле ввода с сокращенным hint_text
         self.guess_input = StableTextInput(
-            hint_text="Введите число от 1 до 100",
-            font_size=sp(20),
-            size_hint=(1, 0.20),
+            hint_text="Введите число",
+            font_size=self.get_adaptive_font_size(16),
+            size_hint=(1, 0.12),
             input_filter='int',
             foreground_color=(0.95, 0.95, 1, 1),
             cursor_color=(0, 0.8, 1, 1),
             hint_text_color=(0.7, 0.7, 0.8, 1),
-            padding=[dp(15), dp(15)],
+            padding=[dp(10), dp(10)],
             neon_color=(0, 0.8, 1, 1)
         )
         self.game_card.add_widget(self.guess_input)
 
         # Пространство
-        spacer1 = Widget(size_hint=(1, 0.03))
+        spacer1 = Widget(size_hint=(1, 0.02))
         self.game_card.add_widget(spacer1)
 
         # Кнопка "Проверить"
         self.submit_button = NeonButton(
             text="ПРОВЕРИТЬ",
-            font_size=sp(18),
-            size_hint=(1, 0.12),
+            font_size=self.get_adaptive_font_size(14),
+            size_hint=(1, 0.1),
             neon_color=(0, 1, 0.5, 1),
             bg_color=(0.12, 0.18, 0.15, 1),
             color=(0, 1, 0.5, 1),
@@ -359,12 +323,12 @@ class GuessNumberWidget(FloatLayout):
         self.submit_button.bind(on_press=self.check_guess)
         self.game_card.add_widget(self.submit_button)
 
-        # Результат
+        # Результат с переносом текста
         self.result_label = Label(
             text="",
-            font_size=sp(16),
+            font_size=self.get_adaptive_font_size(13),
             color=(0.8, 0.8, 0.9, 1),
-            size_hint=(1, 0.13),
+            size_hint=(1, 0.15),
             text_size=(None, None),
             halign='center',
             valign='middle'
@@ -374,8 +338,8 @@ class GuessNumberWidget(FloatLayout):
         # Кнопка "Новая игра"
         self.restart_button = NeonButton(
             text="НОВАЯ ИГРА",
-            font_size=sp(16),
-            size_hint=(1, 0.11),
+            font_size=self.get_adaptive_font_size(13),
+            size_hint=(1, 0.09),
             neon_color=(1, 0.5, 0, 1),
             bg_color=(0.2, 0.15, 0.1, 1),
             color=(1, 0.5, 0, 1),
@@ -386,12 +350,12 @@ class GuessNumberWidget(FloatLayout):
 
         self.add_widget(self.game_card)
 
-        # Кнопка подсказки в верхнем правом углу
+        # Кнопка подсказки в верхнем правом углу (уменьшенная)
         self.hint_button = HintButton(
             text="?",
-            font_size=sp(20),
+            font_size=self.get_adaptive_font_size(16),
             size_hint=(None, None),
-            size=(dp(50), dp(50)),
+            size=(dp(40), dp(40)),
             pos_hint={'right': 0.95, 'top': 0.95},
             color=(1, 0.8, 0, 1),
             bold=True
@@ -402,8 +366,31 @@ class GuessNumberWidget(FloatLayout):
         # Привязываем Enter
         self.guess_input.bind(on_text_validate=self.check_guess)
 
-        # Обновляем размеры при инициализации
-        self.update_adaptive_sizes()
+        # Обновляем text_size для всех Label
+        self.update_text_sizes()
+
+    def get_adaptive_font_size(self, base_size):
+        """Возвращает адаптивный размер шрифта"""
+        scale_factor = min(self.screen_width / 400, self.screen_height / 600)
+        return sp(max(base_size * scale_factor, 10))  # Минимум 10sp
+
+    def update_text_sizes(self):
+        """Обновляет text_size для всех Label чтобы текст переносился"""
+        Clock.schedule_once(self._update_text_sizes, 0.1)
+
+    def _update_text_sizes(self, dt):
+        """Отложенное обновление text_size"""
+        labels = [
+            self.title_label,
+            self.subtitle_label,
+            self.hint_label,
+            self.attempts_label,
+            self.result_label
+        ]
+
+        for label in labels:
+            if label.width > 0:
+                label.text_size = (label.width - dp(20), None)
 
     def on_window_resize(self, window, width, height):
         """Обработчик изменения размера окна"""
@@ -412,29 +399,30 @@ class GuessNumberWidget(FloatLayout):
         self.update_adaptive_sizes()
 
     def update_adaptive_sizes(self):
-        """Обновляет размеры элементов в зависимости от размера экрана"""
-        # Адаптивные размеры шрифтов
-        base_font_scale = min(self.screen_width, self.screen_height) / 400
+        """Обновляет размеры элементов"""
+        # Обновляем размеры шрифтов
+        self.title_label.font_size = self.get_adaptive_font_size(24)
+        self.subtitle_label.font_size = self.get_adaptive_font_size(12)
+        self.hint_label.font_size = self.get_adaptive_font_size(14)
+        self.attempts_label.font_size = self.get_adaptive_font_size(12)
+        self.guess_input.font_size = self.get_adaptive_font_size(16)
+        self.submit_button.font_size = self.get_adaptive_font_size(14)
+        self.result_label.font_size = self.get_adaptive_font_size(13)
+        self.restart_button.font_size = self.get_adaptive_font_size(13)
+        self.hint_button.font_size = self.get_adaptive_font_size(16)
 
-        self.title_label.font_size = sp(32 * base_font_scale)
-        self.subtitle_label.font_size = sp(14 * base_font_scale)
-        self.hint_label.font_size = sp(18 * base_font_scale)
-        self.attempts_label.font_size = sp(14 * base_font_scale)
-        self.guess_input.font_size = sp(20 * base_font_scale)
-        self.submit_button.font_size = sp(18 * base_font_scale)
-        self.result_label.font_size = sp(16 * base_font_scale)
-        self.restart_button.font_size = sp(16 * base_font_scale)
-        self.hint_button.font_size = sp(20 * base_font_scale)
+        # Обновляем text_size
+        self.update_text_sizes()
 
     def show_hint(self, instance):
         """Показывает загаданное число"""
         if not self.hint_shown and not self.guess_input.disabled:
             self.hint_shown = True
-            self.hint_label.text = f"ПОДСКАЗКА: Загаданное число {self.target_number}"
-            self.hint_label.color = (1, 0.8, 0, 1)  # Золотистый цвет
+            self.hint_label.text = f"ПОДСКАЗКА:\nЧисло {self.target_number}"
+            self.hint_label.color = (1, 0.8, 0, 1)
 
             # Анимация подсказки
-            anim = Animation(font_size=self.hint_label.font_size * 1.2, duration=0.3) + \
+            anim = Animation(font_size=self.hint_label.font_size * 1.1, duration=0.3) + \
                    Animation(font_size=self.hint_label.font_size, duration=0.3)
             anim.start(self.hint_label)
 
@@ -451,7 +439,7 @@ class GuessNumberWidget(FloatLayout):
         try:
             user_guess = int(input_text)
             if user_guess < 1 or user_guess > 100:
-                self.show_error("Число должно быть от 1 до 100!")
+                self.show_error("Число от 1 до 100!")
                 return
 
             self.attempts += 1
@@ -459,14 +447,14 @@ class GuessNumberWidget(FloatLayout):
 
             if user_guess < self.target_number:
                 if not self.hint_shown:
-                    self.hint_label.text = "Загаданное число БОЛЬШЕ!"
+                    self.hint_label.text = "Загаданное число\nБОЛЬШЕ!"
                     self.hint_label.color = (1, 0.6, 0, 1)
                 self.result_label.text = f"Ваше число: {user_guess}"
                 self.result_label.color = (0.7, 0.7, 0.8, 1)
                 self.animate_hint()
             elif user_guess > self.target_number:
                 if not self.hint_shown:
-                    self.hint_label.text = "Загаданное число МЕНЬШЕ!"
+                    self.hint_label.text = "Загаданное число\nМЕНЬШЕ!"
                     self.hint_label.color = (1, 0.6, 0, 1)
                 self.result_label.text = f"Ваше число: {user_guess}"
                 self.result_label.color = (0.7, 0.7, 0.8, 1)
@@ -474,11 +462,11 @@ class GuessNumberWidget(FloatLayout):
             else:
                 self.celebrate_win()
 
-            # Автоматическая очистка поля ввода после проверки
+            # Автоматическая очистка поля ввода
             self.guess_input.text = ""
 
         except ValueError:
-            self.show_error("Введите корректное число!")
+            self.show_error("Введите число!")
 
     def show_error(self, message):
         self.hint_label.text = message
@@ -489,11 +477,11 @@ class GuessNumberWidget(FloatLayout):
     def celebrate_win(self):
         attempts_text = "попытку" if self.attempts == 1 else "попытки" if self.attempts < 5 else "попыток"
 
-        self.result_label.text = f"ПОЗДРАВЛЯЮ!\n\nВы угадали число {self.target_number}\nза {self.attempts} {attempts_text}!"
+        self.result_label.text = f"ПОЗДРАВЛЯЮ!\n\nВы угадали число\n{self.target_number}\nза {self.attempts} {attempts_text}!"
         self.result_label.color = (0, 1, 0.5, 1)
 
         if not self.hint_shown:
-            self.hint_label.text = "ОТЛИЧНАЯ РАБОТА!"
+            self.hint_label.text = "ОТЛИЧНАЯ\nРАБОТА!"
             self.hint_label.color = (0, 1, 0.5, 1)
 
         self.guess_input.disabled = True
@@ -503,23 +491,23 @@ class GuessNumberWidget(FloatLayout):
         self.victory_animation()
 
     def victory_animation(self):
-        anim = Animation(font_size=self.result_label.font_size * 1.4, color=(0, 1, 0.5, 1), duration=0.6) + \
+        anim = Animation(font_size=self.result_label.font_size * 1.2, color=(0, 1, 0.5, 1), duration=0.6) + \
                Animation(font_size=self.result_label.font_size, color=(0, 0.8, 0.4, 1), duration=0.6)
         anim.repeat = True
         anim.start(self.result_label)
 
     def animate_hint(self):
-        anim = Animation(font_size=self.hint_label.font_size * 1.2, duration=0.2) + \
+        anim = Animation(font_size=self.hint_label.font_size * 1.1, duration=0.2) + \
                Animation(font_size=self.hint_label.font_size, duration=0.2)
         anim.start(self.hint_label)
 
     def animate_error(self):
         original_x = self.guess_input.x
         shake_anim = (
-                Animation(x=original_x + dp(20), duration=0.05) +
-                Animation(x=original_x - dp(20), duration=0.05) +
                 Animation(x=original_x + dp(15), duration=0.05) +
                 Animation(x=original_x - dp(15), duration=0.05) +
+                Animation(x=original_x + dp(10), duration=0.05) +
+                Animation(x=original_x - dp(10), duration=0.05) +
                 Animation(x=original_x, duration=0.05)
         )
         shake_anim.start(self.guess_input)
@@ -532,7 +520,7 @@ class GuessNumberWidget(FloatLayout):
         self.guess_input.disabled = False
         self.submit_button.disabled = False
         self.hint_button.disabled = False
-        self.hint_label.text = "Я загадал новое число от 1 до 100"
+        self.hint_label.text = "Я загадал число\nот 1 до 100"
         self.hint_label.color = (0.8, 0.8, 0.9, 1)
         self.result_label.text = ""
         self.attempts_label.text = ""
@@ -547,8 +535,7 @@ class GuessNumberWidget(FloatLayout):
 
 class GuessNumberApp(App):
     def build(self):
-        self.title = "Угадай число - Adaptive"
-        # Убираем фиксированный размер для адаптивности
+        self.title = "Угадай число"
         return GuessNumberWidget()
 
 
